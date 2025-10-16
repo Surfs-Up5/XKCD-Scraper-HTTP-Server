@@ -44,7 +44,7 @@ A Golang-based HTTP server that scrapes XKCD comics, serves them via a REST API,
 
 1. Build the Docker image:
    
-  docker build -txkcd-server ./Project-1
+  docker build -t xkcd-server ./Project-1
 
 2. Run the container:
   

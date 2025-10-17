@@ -1,74 +1,129 @@
-# XKCD Scraper HTTP Server
+**#Project 1 – XKCD Server**
 
-A Golang-based HTTP server that scrapes XKCD comics, serves them via a REST API, and supports multi-threaded downloads using Goroutines.
+<u>##Overview<u>
 
-## Features
+The XKCD Server is a Golang-based program that downloads and serves XKCD comics via an HTTP REST API. It demonstrates the use of Go, Git, Docker, HTTP servers, multithreading, unit testing, and Postman.
+The project started as a simple downloader, then was extended, refactored, and dockerized — reflecting real-world software development practices.
 
-- Downloads XKCD comics and stores them locally.
-- REST API endpoints:
-  - `GET /comic/{id}` – Check if a comic is downloaded or currently downloading.
-  - `POST /comic/{id}` – Request a comic to be downloaded.
-  - `GET /download/{id}` – Download the comic image if available.
-- Multi-threaded downloads using Goroutines.
-- Supports CLI flags for version info and server mode.
+<u>##Tools and Technologies<u>
 
-## Requirements
+Golang – Core programming language for development.
 
-- Go 1.25+
-- Docker (optional, for containerization)
+Git & GitHub – Version control and collaboration.
 
-## Setup & Run
+VSCode IDE – Development environment with debugging tools.
 
-### Locally
+Docker – Deployment and containerization.
 
-1. Clone the repository:
-   
-   git clone https://github.com/Surfs-Up5/XKCD-Scraper-HTTP-Server.git
-   cd Project-1
+HTTP / REST API – For web server communication.
 
-2. Install dependencies:
+Postman / curl – For testing API endpoints.
 
-   go mod download
-
-3. Run the server:
-
-   go run Project1.go --server
-
-   The server will start on: http://localhost:8080
-
-   API Endpoints:
-  - Check comic status: http://localhost:8080/comic/1
-  - Download comic: http://localhost:8080/download/1
-
-### Docker Deployment
-
-1. Build the Docker image:
-   
-  docker build -t xkcd-server ./Project-1
-
-2. Run the container:
-  
-  docker run -p 8080:8080 xkcd-server
-
-  Comics are saved in the comics/ folder inside the container. Use volumes to persist locally.
-
-### Using Docker Compose
-  If both server and client are defined in the same docker-compose.yml, run:
-
-  docker compose up --build
-
-## Notes
-- Comics will be saved to the `comics/` folder.
-- Works both locally and in Docker environments.
-- Logs server activity to the console.
+Unit Testing (Go test) – To ensure code correctness.
 
 
+##Project Versions
 
-  
-   
-
-  
+<u>###Version 1 – Initial Downloader<u>
 
 
+Downloads all comics from XKCD
 
-   
+Skips already downloaded comics on reruns.
+
+Demonstrates file I/O and HTTP handling in Go.
+
+
+<u>###Version 2 – CLI Interface<u>
+
+
+Added command-line flags:
+
+--version – Display program version.
+
+--parser=regex/html – Choose between HTML parsing methods.
+
+--download-all – Force full download regardless of existing files.
+
+By default, the program stops when it encounters an already downloaded comic and parses data using JSON.
+
+Built using Go’s flag package.
+
+
+<u>###Version 3 – Multithreading<u>
+
+
+Utilizes Goroutines to download multiple comics simultaneously.
+
+Flag: --threads=<n> sets number of concurrent downloads (default 3).
+
+Demonstrates Go’s concurrency model and performance benefits.
+
+
+<u>###Version 4 – XKCD Server (HTTP Server)<u>
+
+
+Transforms the CLI tool into a web-accessible API server.
+
+Implements REST API endpoints:
+
+Method	Endpoint	Description
+GET	/comic/{id}	Returns JSON on comic download status. ({"downloaded": true/false, "isDownloading": true/false})
+POST	/comic/{id}	Triggers the download of a specific comic.
+GET	/download/{id}	Returns the actual comic image if available, else 404.
+
+Supports both manual and client-side requests.
+
+Designed for testing with Postman and curl.
+
+##Testing
+
+Unit tests written using Go’s built-in testing package.
+
+Run tests with:
+
+go test ./...
+
+
+Tests validate functionality, document behavior, and prevent regressions during refactors.
+
+##Setup & Run (Locally)
+
+1. Clone repository
+git clone https://github.com/<username>/xkcd-server.git
+cd xkcd-server
+
+2. Build
+go build -o xkcd-server main.go
+
+3. Run with defaults
+./xkcd-server
+
+# Example: Run with CLI options
+./xkcd-server --threads=5 --download-all
+
+##Run via Docker
+
+###Build Docker image
+docker build -t xkcd-server .
+
+###Run container
+docker run -d -p 8080:8080 xkcd-server
+
+
+Server will be available at http://localhost:8080.
+
+##API Using Postman or curl
+
+###Check if a comic exists
+curl http://localhost:8080/comic/1234
+
+###Request a comic download
+curl -X POST http://localhost:8080/comic/1234
+
+###Get downloaded comic
+curl http://localhost:8080/download/1234
+
+🔗 Cross-Platform Testing
+
+Tested on Windows and Linux (Ubuntu/Mint) via VirtualBox.

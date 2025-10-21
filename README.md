@@ -1,84 +1,78 @@
-**#Project 1 – XKCD Server**
+# XKCD Server
+## Overview
 
-<u>##Overview<u>
-
-The XKCD Server is a Golang-based program that downloads and serves XKCD comics via an HTTP REST API. It demonstrates the use of Go, Git, Docker, HTTP servers, multithreading, unit testing, and Postman.
+The XKCD Server is a Golang-based program that downloads and serves XKCD comics via an HTTP REST API.
+It demonstrates the use of Go, Git, Docker, HTTP servers, multithreading, unit testing, and Postman.
 The project started as a simple downloader, then was extended, refactored, and dockerized — reflecting real-world software development practices.
 
-<u>##Tools and Technologies<u>
+## Tools and Technologies
 
-Golang – Core programming language for development.
+Golang – Core programming language for development
 
-Git & GitHub – Version control and collaboration.
+Git & GitHub – Version control and collaboration
 
-VSCode IDE – Development environment with debugging tools.
+VSCode IDE – Development environment with debugging tools
 
-Docker – Deployment and containerization.
+Docker – Deployment and containerization
 
-HTTP / REST API – For web server communication.
+HTTP / REST API – Web server communication
 
-Postman / curl – For testing API endpoints.
+Postman / curl – Testing API endpoints
 
-Unit Testing (Go test) – To ensure code correctness.
+Unit Testing (Go test) – Ensures code correctness
 
-
-##Project Versions
-
-<u>###Version 1 – Initial Downloader<u>
-
+## Project Versions
+### Version 1 – Initial Downloader
 
 Downloads all comics from XKCD
 
-Skips already downloaded comics on reruns.
+Skips already downloaded comics on reruns
 
-Demonstrates file I/O and HTTP handling in Go.
+Demonstrates file I/O and HTTP handling in Go
 
-
-<u>###Version 2 – CLI Interface<u>
-
+### Version 2 – CLI Interface
 
 Added command-line flags:
 
---version – Display program version.
+--version – Display program version
 
---parser=regex/html – Choose between HTML parsing methods.
+--parser=regex/html – Choose between HTML parsing methods
 
---download-all – Force full download regardless of existing files.
+--download-all – Force full download regardless of existing files
 
-By default, the program stops when it encounters an already downloaded comic and parses data using JSON.
+Defaults:
 
-Built using Go’s flag package.
+Stops when encountering an already downloaded comic
 
+Parses data using JSON
 
-<u>###Version 3 – Multithreading<u>
+Built using Go’s flag package
 
+### Version 3 – Multithreading
 
-Utilizes Goroutines to download multiple comics simultaneously.
+Utilizes Goroutines to download multiple comics simultaneously
 
-Flag: --threads=<n> sets number of concurrent downloads (default 3).
+Flag: --threads= sets number of concurrent downloads (default: 3)
 
-Demonstrates Go’s concurrency model and performance benefits.
+Demonstrates Go’s concurrency model and performance benefits
 
-
-<u>###Version 4 – XKCD Server (HTTP Server)<u>
-
+### Version 4 – XKCD Server (HTTP Server)
 
 Transforms the CLI tool into a web-accessible API server.
 
-Implements REST API endpoints:
-
+REST API Endpoints
 Method	Endpoint	Description
-GET	/comic/{id}	Returns JSON on comic download status. ({"downloaded": true/false, "isDownloading": true/false})
-POST	/comic/{id}	Triggers the download of a specific comic.
-GET	/download/{id}	Returns the actual comic image if available, else 404.
+GET	/comic/{id}	Returns JSON with comic download status → {"downloaded": true/false, "isDownloading": true/false}
+POST	/comic/{id}	Triggers the download of a specific comic
+GET	/download/{id}	Returns the actual comic image if available, else 404
 
-Supports both manual and client-side requests.
+Supports both manual and client-side requests
 
-Designed for testing with Postman and curl.
+Designed for testing with Postman and curl
 
-##Testing
+## Testing
 
-Unit tests written using Go’s built-in testing package.
+Unit tests are written using Go’s built-in testing package.
 
 Run tests with:
 
@@ -87,43 +81,41 @@ go test ./...
 
 Tests validate functionality, document behavior, and prevent regressions during refactors.
 
-##Setup & Run (Locally)
-
-1. Clone repository
-git clone https://github.com/<username>/xkcd-server.git
+## Setup & Run (Locally)
+### Clone repository
+git clone https://github.com/<your-username>/xkcd-server.git
 cd xkcd-server
 
-2. Build
+### Build executable
 go build -o xkcd-server main.go
 
-3. Run with defaults
+### Run with defaults
 ./xkcd-server
 
-# Example: Run with CLI options
+### Example: Run with CLI options
 ./xkcd-server --threads=5 --download-all
 
-##Run via Docker
-
-###Build Docker image
+## Run via Docker
+### Build Docker Image
 docker build -t xkcd-server .
 
-###Run container
+### Run Container
 docker run -d -p 8080:8080 xkcd-server
 
 
-Server will be available at http://localhost:8080.
+Server will be available at:
+http://localhost:8080
 
-##API Using Postman or curl
-
-###Check if a comic exists
+## API Usage (Postman / curl)
+Check if a comic exists
 curl http://localhost:8080/comic/1234
 
-###Request a comic download
+Request a comic download
 curl -X POST http://localhost:8080/comic/1234
 
-###Get downloaded comic
+Get downloaded comic
 curl http://localhost:8080/download/1234
 
-🔗 Cross-Platform Testing
+## Cross-Platform Testing
 
 Tested on Windows and Linux (Ubuntu/Mint) via VirtualBox.

@@ -89,17 +89,17 @@ Tests validate functionality, document behavior, and prevent regressions during 
 
 ## Setup & Run (Locally)
 ### Clone repository
-git clone https://github.com/<your-username>/xkcd-server.git
+git clone https://github.com/Cole-Parsons/XKCD-Scraper-HTTP-Server.git
 cd xkcd-server
 
 ### Build executable
-go build -o xkcd-server main.go
+go build -o xkcd-server Project1.go
 
 ### Run with defaults
 ./xkcd-server
 
-### Example: Run with CLI options
-./xkcd-server --threads=5 --download-all
+### Example: Run version 3 with CLI options
+go run Project1.go --threads=5 --download-all
 
 ## Run via Docker
 
@@ -108,7 +108,6 @@ docker build -t xkcd-server .
 
 ### Run Container
 docker run -d -p 8080:8080 xkcd-server
-
 
 Server will be available at:
 http://localhost:8080

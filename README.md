@@ -5,6 +5,7 @@ The XKCD Server is a Golang-based program that downloads and serves XKCD comics 
 It demonstrates the use of Go, Git, Docker, HTTP servers, multithreading, unit testing, and Postman.
 The project started as a simple downloader, then was extended, refactored, and dockerized — reflecting real-world software development practices.
 
+
 ## Tools and Technologies
 
 Golang – Core programming language for development
@@ -21,6 +22,7 @@ Postman / curl – Testing API endpoints
 
 Unit Testing (Go test) – Ensures code correctness
 
+
 ## Project Versions
 ### Version 1 – Initial Downloader
 
@@ -29,6 +31,7 @@ Downloads all comics from XKCD
 Skips already downloaded comics on reruns
 
 Demonstrates file I/O and HTTP handling in Go
+
 
 ### Version 2 – CLI Interface
 
@@ -48,6 +51,7 @@ Parses data using JSON
 
 Built using Go’s flag package
 
+
 ### Version 3 – Multithreading
 
 Utilizes Goroutines to download multiple comics simultaneously
@@ -55,6 +59,7 @@ Utilizes Goroutines to download multiple comics simultaneously
 Flag: --threads= sets number of concurrent downloads (default: 3)
 
 Demonstrates Go’s concurrency model and performance benefits
+
 
 ### Version 4 – XKCD Server (HTTP Server)
 
@@ -70,16 +75,17 @@ Supports both manual and client-side requests
 
 Designed for testing with Postman and curl
 
+
 ## Testing
 
 Unit tests are written using Go’s built-in testing package.
 
 Run tests with:
 
-go test ./...
-
+go test Project1_test.go
 
 Tests validate functionality, document behavior, and prevent regressions during refactors.
+
 
 ## Setup & Run (Locally)
 ### Clone repository
@@ -96,6 +102,7 @@ go build -o xkcd-server main.go
 ./xkcd-server --threads=5 --download-all
 
 ## Run via Docker
+
 ### Build Docker Image
 docker build -t xkcd-server .
 
